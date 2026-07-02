@@ -1,11 +1,14 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useReducer } from 'react';
 
-const createNewObject = (): Record<string, never> => ({});
+const INITIAL_COUNT = 0;
+const INCREMENT = 1;
+
+const increment = (count: number): number => count + INCREMENT;
 
 export default function useForceUpdate(): VoidFunction {
-  const [, setValue] = useState<Record<string, never>>(createNewObject);
+  const [, dispatch] = useReducer(increment, INITIAL_COUNT);
 
   return useCallback((): void => {
-    setValue(createNewObject());
+    dispatch();
   }, []);
 }
